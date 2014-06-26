@@ -133,7 +133,6 @@
       waitForQueue = function() {
         for (url in queue) {
             if (queue[url] === 0) {
-                console.log("tieout");
                 setTimeout(waitForQueue, 10000);
                 return;
             }
