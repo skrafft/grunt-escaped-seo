@@ -4,7 +4,7 @@
 
 ## About
 
-I forked this project from [hazart version](https://github.com/hazart/grunt-escaped-seo) because it was eating too much memory for my needs (with the jsdom locading). I removed the jsdom and modified the way phantom opens the pages. Now, one phantom for one link otherwise phantom crashes.
+I forked this project from [hazart version](https://github.com/hazart/grunt-escaped-seo) because it was eating too much memory for my needs (with jsdom). I removed jsdom calls and modified the way phantom opens the pages. Now, we open one phantom for one link otherwise phantom crashes at some point of the process.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -12,7 +12,7 @@ This plugin requires Grunt `~0.4.1`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-escaped-seo --save-dev
+npm install skrafft/grunt-escaped-seo --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:

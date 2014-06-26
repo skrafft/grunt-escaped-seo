@@ -1,23 +1,23 @@
 {
   "name": "grunt-escaped-seo",
-  "description": "Generate an SEO website and sitemap for google escaped fragments",
-  "version": "0.5.0-light",
-  "homepage": "https://github.com/hazart/grunt-escaped-seo",
+  "description": "Generate an SEO website and sitemap for google escaped fragments - forked from https://github.com/skrafft/grunt-escaped-seo",
+  "version": "0.5.1",
+  "homepage": "https://github.com/skrafft/grunt-escaped-seo",
   "author": {
-    "name": "Alex Koch",
-    "email": "alex@pr0d.fr"
+    "name": "Sébastien Krafft",
+    "email": "sebastien.krafft@1016prod.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hazart/grunt-escaped-seo.git"
+    "url": "git://github.com/skrafft/grunt-escaped-seo.git"
   },
   "bugs": {
-    "url": "https://github.com/hazart/grunt-escaped-seo/issues"
+    "url": "https://github.com/skrafft/grunt-escaped-seo/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/hazart/grunt-escaped-seo/blob/master/LICENSE-MIT"
+      "url": "https://github.com/skrafft/grunt-escaped-seo/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "path": "~0.4.9",
-    "jsdom": "~0.10.5",
     "jquery": "~2.1.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.10.1",
@@ -39,7 +38,6 @@
   },
   "peerDependencies": {
     "grunt": "~0.4.4",
-    "jsdom": "~0.10.5",
     "jquery": "~2.1.1",
     "phantom": "~0.6.1"
   },
