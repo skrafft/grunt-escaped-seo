@@ -2,6 +2,10 @@
 
 > Generate an SEO website for site with google escaped fragments
 
+## About
+
+I forked this project from [hazart version](https://github.com/hazart/grunt-escaped-seo) because it was eating too much memory for my needs (with the jsdom locading). I removed the jsdom and modified the way phantom opens the pages. Now, one phantom for one link otherwise phantom crashes.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
@@ -70,14 +74,6 @@ grunt.initConfig({
 })
 ```
 
-In your html code you can add a nofollow class inside some tags and these tags and its contents will be skipped
-
-```html
-<div class="nofollow">
-    This content will not be indexed
-</div>
-```
-
 ### Options
 
 #### options.domain
@@ -142,6 +138,7 @@ You can define in this object some replace rules for the static html versions. E
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
+0.5.1   Removed jsdom stuff and open one phantom for on link. no-follow has been removed as well.
 0.5.0   Add the no-follow possibility
 0.4.1   Add index on files inside folders if needed
 0.4.0   Add the protocol inside the sitemap loc

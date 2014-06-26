@@ -1,9 +1,10 @@
 (function() {
   var env, path;
+  var hd = null;
 
+  var util = require('util');
   path = require('path');
-
-  env = require('jsdom').env;
+  memwatch = require('memwatch');
 
   module.exports = function(grunt) {
     return grunt.registerMultiTask('escaped-seo', 'Generate an SEO website and sitemap for google escaped fragments', function() {
@@ -34,12 +35,10 @@
       page = null;
       done = this.async();
       initPhantom = function() {
-        return phantom.create('--local-to-remote-url-access=yes', function(ph) {
-          this.ph = ph;
-          return processQueue();
-        });
+          processQueue();
+          waitForQueue();
       };
-      createPage = function(url) {
+      createPage = function(url, u) {
         return this.ph.createPage(function(page) {
           this.page = page;
           this.page.set('viewportSize', {
@@ -69,7 +68,7 @@
           this.page.set('onUrlChanged', function(url) {
             setTimeout((function(_this) {
               return function() {
-                return processPage();
+                return processPage(u);
               };
             })(this), options.delay);
             return this.page.set('onUrlChanged', null);
@@ -77,19 +76,12 @@
           return this.page.open(url, function(status) {});
         });
       };
-      processPage = function() {
+      processPage = function(url) {
         return this.page.evaluate((function() {
           return document.documentElement.outerHTML;
         }), function(result) {
-          return env(result, (function(_this) {
-            return function(errors, window) {
               var $, content, destFile, domain, k, match, pattern, pf, u, v, _ref;
-              if (errors) {
-                console.log("ALERT>".red, console.log(errors));
-              }
-              $ = require('jquery')(window);
-              $('.nofollow').remove();
-              content = $('html')[0].outerHTML;
+              content = result;
               pattern = /[#!/]*([\w\/\-_]*)/g;
               match = pattern.exec(url);
               destFile = match ? match[1] : "";
@@ -117,26 +109,36 @@
                   queue[u] = 0;
                 }
               }
-              _this.page.close();
+              queue[url] = 1;
+              this.page.close();
+              this.ph.exit();
               return processQueue();
-            };
-          })(this));
         });
       };
       processQueue = function() {
         var href;
         for (url in queue) {
           if (queue[url] === 0) {
-            queue[url] = 1;
             href = path.join(options.server, url);
             grunt.log.writeln('process: '.green + href);
-            createPage(href);
+            phantom.create('--local-to-remote-url-access=yes', function(ph) {
+                this.ph = ph;
+                createPage(href, url);
+            });
             return;
           }
         }
-        this.ph.exit();
         return generateSitemap();
       };
+      waitForQueue = function() {
+        for (url in queue) {
+            if (queue[url] === 0) {
+                console.log("tieout");
+                setTimeout(waitForQueue, 10000);
+                return;
+            }
+        }
+      }
       generateSitemap = function() {
         var domain, pf, priority, time, u, xmlStr, _j, _len1;
         time = new Date().toISOString();
@@ -148,7 +150,7 @@
           u = require('url').resolve(domain, url);
           priority = 1;
           if (u.length > 1) {
-            priority -= (u.split("/").length - 1) / 10;
+            priority -= (u.split("/").length - 4) / 10;
           }
           xmlStr += '  <url>\n';
           xmlStr += "    <loc>" + u + "</loc>\n";
