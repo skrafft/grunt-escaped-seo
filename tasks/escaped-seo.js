@@ -39,6 +39,7 @@
           waitForQueue();
       };
       createPage = function(url, u) {
+        url = url.replace(/#!\//g,'');
         return this.ph.createPage(function(page) {
           this.page = page;
           this.page.set('viewportSize', {
@@ -151,6 +152,7 @@
           if (u.length > 1) {
             priority -= (u.split("/").length - 4) / 10;
           }
+          u = u.replace(/#!\//g,'');
           xmlStr += '  <url>\n';
           xmlStr += "    <loc>" + u + "</loc>\n";
           xmlStr += "    <lastmod>" + time + "</lastmod>\n";
