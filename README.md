@@ -21,7 +21,13 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-escaped-seo');
 ```
 
+You can use the example file sitemap.js.
+
 This plugin require a local installation of PhantomJS (phantomjs.org/‎)
+
+```shell
+npm install -g phantomjs
+```
 
 And the npm "phantom" module `~0.6.1`
 
