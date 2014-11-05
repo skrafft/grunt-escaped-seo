@@ -83,7 +83,7 @@
         }), function(result) {
               var $, content, destFile, domain, k, match, pattern, pf, u, v, _ref;
               content = result;
-              pattern = /[#!/]*([\w\/\-_\.]*)/g;
+              pattern = /[#!/]*([\w\/\-_]*)/g;
               match = pattern.exec(url);
               destFile = match ? match[1] : "";
               pattern = /(<head[\w-="' ]*>)/gi;
