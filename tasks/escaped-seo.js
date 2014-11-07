@@ -122,7 +122,26 @@
           if (queue[url] === 0) {
             href = path.join(options.server, url);
             grunt.log.writeln('process: '.green + href);
-            phantom.create('--local-to-remote-url-access=yes', function(ph) {
+            var opts = {onStderr:function(data) {
+                if (data.toString('utf-8').indexOf('PhantomJS has crashed') !== -1) {
+                    console.log("Phantom has crashed:" + data.toString('utf-8'));
+                    try {
+                        this.page.close();
+                    } catch(e) {
+                        console.log("Page could not be closed");
+                    }
+                    try {
+                        this.ph.exit();
+
+                    } catch(e) {
+                        console.log("Phantom could not be exited");
+                    }
+                    return processQueue();
+                } else {
+                    console.log(data.toString('utf-8'));
+                }
+            }};
+            phantom.create('--local-to-remote-url-access=yes', opts, function(ph) {
                 this.ph = ph;
                 createPage(href, url);
             });

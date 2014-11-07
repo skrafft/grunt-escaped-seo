@@ -144,6 +144,7 @@ You can define in this object some replace rules for the static html versions. E
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
+0.6.0   Added stderr custom handler to catch phantom crashes and restart the process
 0.5.1   Removed jsdom stuff and open one phantom for on link. no-follow has been removed as well.
 0.5.0   Add the no-follow possibility
 0.4.1   Add index on files inside folders if needed
